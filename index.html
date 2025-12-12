@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GTG Perfumes</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script defer src="js/main.js"></script>
+  </head>
+
+  <body>
+    <!-- ================= HEADER & HERO =================  -->
+
+    <div class="hero-wrapper-bg">
+      <!-- ================= HEADER ================= -->
+      <header class="header">
+        <div class="container header-wrapper">
+          <div class="logo">GTG</div>
+
+          <nav class="nav">
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Shop ▾</a></li>
+              <li><a href="#">Fragrances</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </nav>
+
+          <div class="header-actions">
+            <img src="assets/icons/search.svg" class="search-icon" alt="" />
+            <button class="btn primary-btn small-btn">Shop Now</button>
+          </div>
+
+          <button class="menu-btn" id="openMenu">
+            <img src="assets/icons/menu.svg" alt="Menu" />
+          </button>
+        </div>
+      </header>
+
+      <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
+      <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+          <div class="logo">GTG</div>
+
+          <img
+            id="closeMenu"
+            class="close-drawer"
+            src="assets/icons/close.svg"
+            alt="Close"
+          />
+        </div>
+
+        <ul class="drawer-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Fragrances</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- ================= HERO SECTION ================= -->
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="badge">
+            <img src="assets/icons/award.svg" alt="" />
+            Awarded the best perfume in the world
+          </div>
+
+          <h1>Live your best life.</h1>
+
+          <div class="stats">
+            <div class="stat">
+              <h2>10x</h2>
+              <p>power</p>
+            </div>
+
+            <div class="stat">
+              <h2>9</h2>
+              <p>ingredients</p>
+            </div>
+
+            <div class="stat">
+              <h2>20K+</h2>
+              <p>happy customers</p>
+            </div>
+          </div>
+
+          <button class="btn primary-btn large-btn">Shop Now</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= GTG PERFUMES =================  -->
+
+    <section class="product-subscription-section">
+      <div class="container product-sub-wrapper">
+        <!-- LEFT: 5-Image Gallery -->
+        <div class="ps-gallery">
+          <div class="ps-main-image-wrapper">
+            <img
+              class="ps-arrow left"
+              id="psPrev"
+              aria-label="Previous"
+              src="assets/icons/left-arrow.svg"
+              alt="Previous"
+            />
+
+            <img
+              id="psMainImage"
+              src="assets/images/product-main.png"
+              alt="Main Product Image"
+              loading="lazy"
+            />
+
+            <img
+              class="ps-arrow right"
+              id="psNext"
+              aria-label="Next"
+              src="assets/icons/right-arrow.svg"
+              alt="Next"
+            />
+
+            <div class="ps-dots" id="psDots"></div>
+          </div>
+
+          <div class="ps-thumbs" id="psThumbs">
+            <button class="ps-thumb" data-index="1">
+              <img src="assets/images/product-1-thumb.png" alt="" />
+            </button>
+
+            <button class="ps-thumb" data-index="2">
+              <img src="assets/images/product-2-thumb.png" alt="" />
+            </button>
+
+            <button class="ps-thumb" data-index="3">
+              <img src="assets/images/product-3-thumb.png" alt="" />
+            </button>
+
+            <button class="ps-thumb" data-index="4">
+              <img src="assets/images/product-4-thumb.png" alt="" />
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT: Subscription Panel -->
+        <div class="ps-details">
+          <h2 class="ps-title">GTG Perfumes</h2>
+          <div class="ps-rating">
+            <img src="assets/icons/star.svg" alt="" />
+            <img src="assets/icons/star.svg" alt="" />
+            <img src="assets/icons/star.svg" alt="" />
+            <img src="assets/icons/star.svg" alt="" />
+            <img src="assets/icons/star.svg" alt="" />
+            <img src="assets/icons/star-half.svg" alt="" />
+            <span class="ps-rating-value">4.7 (999+ reviews)</span>
+          </div>
+          <p class="ps-desc">
+            Experience the timeless allure backed by modern artistry, captured
+            in every bottle of our fragrance. Crafted for those who seek to
+            elevate their essence with purpose and sophistication.
+          </p>
+
+          <!-- Most Popular -->
+          <div class="ps-most-popular">Most Popular</div>
+
+          <!-- Single / Double -->
+          <div class="ps-plan-selector">
+            <label class="ps-plan">
+              <span
+                ><input type="radio" name="plan" value="single" checked />
+                Single Subscription</span
+              >
+              <strong class="ps-price">$99.99 <span>$146</span></strong>
+            </label>
+
+            <label class="ps-plan">
+              <span
+                ><input type="radio" name="plan" value="double" /> Double
+                Subscription</span
+              >
+              <strong class="ps-price">$169.99 <span>$246</span></strong>
+            </label>
+          </div>
+
+          <!-- SINGLE PANEL -->
+          <div class="ps-panel ps-single" data-panel="single">
+            <h3>Choose a Fragrance</h3>
+
+            <div class="ps-frag-grid" id="psFragSingle"></div>
+
+            <h4>What's Included:</h4>
+
+            <div class="ps-includes">
+              <!-- EVERY 30 DAYS -->
+              <div class="include-card">
+                <div class="include-header">
+                  <strong>Every 30 Days</strong>
+                </div>
+
+                <div class="include-inner">
+                  <img src="assets/images/frag-original-30-days.png" />
+                </div>
+              </div>
+
+              <!-- ONE TIME (FREE) -->
+              <div class="include-card">
+                <div class="include-header">
+                  <strong>One Time <span class="muted">(Free)</span></strong>
+                </div>
+
+                <div class="include-inner mini-list">
+                  <img src="assets/images/frag-original.png" />
+                  <img src="assets/images/frag-lily.png" />
+                  <img src="assets/images/frag-rose.png" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="ps-panel ps-double"
+            data-panel="double"
+            style="display: none"
+          >
+            <h3>Choose Fragrance 1</h3>
+            <div class="ps-frag-grid ps-frag-grid-6" id="psFragDouble1"></div>
+
+            <h3>Choose Fragrance 2</h3>
+            <div class="ps-frag-grid ps-frag-grid-6" id="psFragDouble2"></div>
+
+            <h4>What's Included:</h4>
+
+            <div class="ps-includes">
+              <!-- EVERY 30 DAYS -->
+              <div class="include-card">
+                <div class="include-header">
+                  <strong>Every 30 Days</strong>
+                </div>
+
+                <div class="include-inner">
+                  <img src="assets/images/frag-original-30-days.png" />
+                </div>
+              </div>
+
+              <!-- ONE TIME FREE -->
+              <div class="include-card">
+                <div class="include-header">
+                  <strong>One Time <span class="muted">(Free)</span></strong>
+                </div>
+
+                <div class="include-inner mini-list">
+                  <img src="assets/images/frag-original.png" />
+                  <img src="assets/images/frag-lily.png" />
+                  <img src="assets/images/frag-rose.png" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Features -->
+          <ul class="ps-features">
+            <li>
+              <span><img src="assets/icons/checklist.svg" /></span> 1 Bottle
+              Shipped Monthly
+            </li>
+            <li>
+              <span><img src="assets/icons/checklist.svg" /></span>
+              <strong>Free</strong> Sampler For Original, Lily And Rose
+              Fragrances
+            </li>
+            <li>
+              <span><img src="assets/icons/checklist.svg" /></span>
+              <strong>50% OFF</strong> Shipping
+            </li>
+            <li>
+              <span><img src="assets/icons/checklist.svg" /></span> Pause Or
+              Cancel Anytime After 3 Months
+            </li>
+            <li>
+              <span><img src="assets/icons/checklist.svg" /></span> 28 Day Money
+              Back Guarantee*
+            </li>
+          </ul>
+
+          <!-- Add to Cart -->
+          <div class="ps-cta">
+            <a id="psAddToCart" class="btn ps-add" href="#">Add to Cart</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

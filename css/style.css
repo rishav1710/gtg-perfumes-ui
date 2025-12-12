@@ -1,0 +1,753 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: #032e15;
+  font-weight: 300;
+}
+
+/* ================= HEADER & HERO  ================= */
+
+.hero-wrapper-bg {
+  width: 100%;
+  background-image: url("../assets/images/hero-full.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.header {
+  padding: 24px 0;
+  position: relative;
+  z-index: 10;
+  background: transparent;
+}
+
+.container {
+  width: 90%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(
+    180deg,
+    rgba(3, 46, 21, 0.6) 0%,
+    rgba(1, 102, 48, 0.6) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav ul {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav a {
+  color: #162456;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.search-icon {
+  width: 22px;
+  cursor: pointer;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  font-size: 16px;
+  padding: 12px 26px;
+  transition: 0.2s ease;
+}
+
+.primary-btn {
+  background: linear-gradient(180deg, #032e15 0%, #016630 100%);
+  color: white;
+}
+
+.small-btn {
+  padding: 8px 22px;
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hero {
+  padding-top: 160px;
+  padding-bottom: 300px;
+}
+
+.hero-inner {
+  text-align: left;
+}
+
+.badge {
+  background: linear-gradient(
+    180deg,
+    rgba(3, 46, 21, 0.6) 0%,
+    rgba(1, 102, 48, 0.6) 100%
+  );
+
+  padding: 10px 20px;
+  border-radius: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #fff;
+  font-size: 15px;
+}
+
+.hero h1 {
+  font-size: 54px;
+  font-weight: 700;
+  margin-top: 26px;
+}
+
+.stats {
+  display: flex;
+  justify-content: flex-start;
+  gap: 60px;
+  margin: 40px 0;
+}
+
+.stat h2 {
+  font-size: 44px;
+  font-weight: 700;
+
+  background: linear-gradient(
+    180deg,
+    rgba(3, 46, 21, 0.6) 0%,
+    rgba(1, 102, 48, 0.6) 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat p {
+  font-size: 16px;
+  color: #0d542b;
+}
+
+.large-btn {
+  padding: 14px 34px;
+}
+
+/* ================= MOBILE DRAWER  ================= */
+
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  display: none;
+  z-index: 90;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh;
+  background: #ffffffee;
+  backdrop-filter: blur(8px);
+  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.12);
+  padding: 20px 24px;
+  border-left: 1px solid rgba(0, 0, 0, 0.07);
+
+  transition: right 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 100;
+}
+
+.mobile-drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.drawer-header span {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a3a26;
+}
+
+.close-drawer {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.drawer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.drawer-links li {
+  margin: 18px 0;
+}
+
+.drawer-links li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #1a3a26;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.drawer-links li a:hover {
+  color: #016630;
+  padding-left: 5px;
+}
+
+/* ================= GTG PERFUMES ================= */
+
+.product-subscription-section {
+  padding: 60px 0;
+  background: #fff;
+}
+
+.product-sub-wrapper {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.ps-gallery,
+.ps-details {
+  flex: 1;
+  max-width: 50%;
+}
+
+.ps-main-image-wrapper {
+  position: relative;
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.ps-main-image-wrapper img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.ps-arrow {
+  position: absolute;
+  top: 90%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0;
+}
+
+.ps-arrow {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: contain;
+  border-radius: 50% !important;
+}
+
+.ps-arrow.left {
+  left: 22px;
+}
+.ps-arrow.right {
+  right: 22px;
+}
+
+.ps-dots {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  bottom: -5px;
+}
+
+.ps-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0b5229;
+  opacity: 0.28;
+}
+
+.ps-dot.active {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.ps-thumbs {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.ps-thumb {
+  width: 82px;
+  height: 82px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ps-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ps-thumb.active {
+  border-color: #0b5229;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.ps-title {
+  font-size: 36px;
+  color: #032e15;
+  margin-bottom: 10px;
+}
+
+.ps-desc {
+  color: #557060;
+  line-height: 1.6;
+}
+
+.ps-most-popular {
+  background: linear-gradient(270deg, #032e15 0%, #008236 51.92%, #00c950 100%);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin: 16px 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+.ps-plan-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ps-plan {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ps-price {
+  color: #0b5229;
+  font-weight: 700;
+}
+
+.ps-panel {
+  border: 1px solid #eee;
+  padding: 18px;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.ps-panel h3 {
+  margin-bottom: 16px;
+}
+
+.ps-frag-grid {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.frag-card {
+  width: 110px;
+  padding: 12px;
+  border: 1px solid #eee;
+  background: #fbfbfb;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.frag-card img {
+  width: 70px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.frag-card.active {
+  border-color: #0b5229;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.ps-includes {
+  display: flex;
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.include-header {
+  margin-bottom: 20px;
+}
+
+.include-header strong {
+  font-size: 16px;
+  font-weight: 300;
+  color: #6f7577;
+}
+
+.include-header .muted {
+  font-weight: 300;
+}
+
+.include-card {
+  flex: 1;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 20px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.ps-price span {
+  text-decoration: line-through;
+  font-weight: 300;
+  color: #b8b8b8;
+}
+
+.include-inner {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.include-inner.mini-list {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.include-inner > img {
+  height: 150px;
+  width: auto;
+  object-fit: contain;
+}
+
+.mini-list img {
+  height: 95px;
+  width: auto;
+  object-fit: contain;
+}
+
+.ps-panel.ps-single h4,
+.ps-panel.ps-single h3,
+.ps-panel.ps-double h4,
+.ps-panel.ps-double h3 {
+  font-weight: 300;
+}
+
+.ps-cta {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.ps-add {
+  background: linear-gradient(180deg, #032e15 0%, #016630 100%);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 999px;
+  display: inline-block;
+  width: 100%;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+.ps-rating {
+  margin-bottom: 10px;
+}
+
+.ps-features {
+  margin: 20px 0;
+  list-style-type: none;
+}
+
+.ps-features li {
+  font-weight: 300;
+  color: #032e15;
+  padding-bottom: 10px;
+}
+
+.ps-features li strong {
+  font-weight: 700;
+}
+
+/* =========================================
+   RESPONSIVE LAYOUT
+========================================= */
+
+@media (max-width: 1200px) {
+  /* ================= HEADER & HERO  ================= */
+  .hero {
+    padding-top: 100px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 992px) {
+  /* ================= HEADER & HERO  ================= */
+  .hero {
+    padding-top: 0px;
+    text-align: center;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  .hero-inner {
+    text-align: center;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ================= GTG PERFUMES  ================= */
+  .product-sub-wrapper {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .ps-gallery,
+  .ps-details {
+    max-width: 100%;
+  }
+
+  .ps-main-image-wrapper img {
+    height: 420px;
+  }
+
+  .ps-thumbs {
+    gap: 10px;
+  }
+
+  .ps-thumb {
+    width: 70px;
+    height: 70px;
+  }
+
+  .ps-frag-grid {
+    flex-wrap: wrap;
+  }
+
+  .frag-card {
+    width: 100px;
+  }
+
+  .include-inner img {
+    height: 130px;
+  }
+
+  .mini-list img {
+    height: 80px;
+  }
+
+  .product-sub-wrapper {
+    flex-direction: column;
+  }
+  .ps-gallery,
+  .ps-details {
+    width: 100%;
+  }
+  .ps-thumbs {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  /* ================= GTG PERFUMES  ================= */
+
+  .product-subscription-section {
+    padding: 32px 0;
+  }
+
+  .ps-title {
+    font-size: 28px;
+  }
+
+  .ps-desc {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .ps-main-image-wrapper img {
+    height: 360px;
+  }
+
+  .ps-arrow {
+    top: 50%;
+    width: 36px !important;
+    height: 36px !important;
+  }
+  .ps-arrow.left {
+    left: 8px;
+  }
+  .ps-arrow.right {
+    right: 8px;
+  }
+
+  .ps-thumb {
+    width: 64px;
+    height: 64px;
+  }
+
+  .ps-includes {
+    flex-direction: column;
+  }
+
+  .include-card {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .include-header strong {
+    font-size: 15px;
+  }
+
+  .ps-plan {
+    padding: 12px;
+  }
+
+  .ps-frag-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .frag-card {
+    width: 100px;
+  }
+
+  .mini-list img {
+    height: 75px;
+  }
+
+  .ps-add {
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* ================= GTG PERFUMES  ================= */
+
+  .ps-title {
+    font-size: 24px;
+  }
+
+  .ps-main-image-wrapper img {
+    height: 300px;
+  }
+
+  .ps-thumbs {
+    justify-content: center;
+  }
+
+  .ps-thumb {
+    width: 58px;
+    height: 58px;
+  }
+
+  .frag-card {
+    width: 90px;
+    padding: 10px;
+  }
+
+  .frag-card img {
+    height: 70px;
+  }
+
+  .include-inner img {
+    height: 110px;
+  }
+
+  .mini-list img {
+    height: 65px;
+  }
+
+  .ps-features li {
+    font-size: 14px;
+  }
+}
