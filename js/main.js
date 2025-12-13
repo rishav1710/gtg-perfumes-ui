@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
   observer.observe(statsSection);
 
   /* =====================================================
-     PRODUCT GALLERY
+     PRODUCT GALLERY (UPDATED FOR SLIDING ANIMATION)
   ===================================================== */
   const gallery = [
     "assets/images/product-main.png",
@@ -134,15 +134,27 @@ document.addEventListener("DOMContentLoaded", () => {
     "assets/images/product-4.jpg",
   ];
 
-  const mainImage = document.getElementById("psMainImage");
+  const slider = document.getElementById("psImageSlider"); // NEW: The container that moves
   const prevBtn = document.getElementById("psPrev");
   const nextBtn = document.getElementById("psNext");
   const dotsContainer = document.getElementById("psDots");
   const thumbs = document.querySelectorAll(".ps-thumb");
 
-  if (mainImage && prevBtn && nextBtn && dotsContainer) {
+  if (slider && prevBtn && nextBtn && dotsContainer) {
     let currentIndex = 0;
 
+    // 1. Function to create all the image slide elements
+    function initializeSlider() {
+      slider.innerHTML = "";
+      gallery.forEach((src) => {
+        const slide = document.createElement("div");
+        slide.className = "ps-image-slide";
+        slide.innerHTML = `<img src="${src}" alt="Product Image">`;
+        slider.appendChild(slide);
+      });
+    }
+
+    // 2. Function to update navigation dots
     function renderDots() {
       dotsContainer.innerHTML = "";
       gallery.forEach((_, i) => {
@@ -153,33 +165,43 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    // 3. Function to update active thumbnail state
     function updateThumbs() {
-      thumbs.forEach((t) => {
-        const idx = parseInt(t.dataset.index, 10);
-        t.classList.toggle("active", idx === currentIndex);
+      thumbs.forEach((t, index) => {
+        // Since thumbs start at index 1 in the gallery (index 0 is product-main.png)
+        const isThumbActive = index + 1 === currentIndex;
+        t.classList.toggle("active", isThumbActive);
       });
     }
 
+    // 4. Core function to slide the carousel
     function goTo(i) {
       if (i < 0) i = gallery.length - 1;
       if (i >= gallery.length) i = 0;
       currentIndex = i;
 
-      mainImage.src = gallery[currentIndex];
+      // CORE CHANGE: Use CSS transform to slide the whole container
+      const offset = -currentIndex * 100; // Calculates the percentage offset (0%, -100%, -200%, etc.)
+      slider.style.transform = `translateX(${offset}%)`;
+
       renderDots();
       updateThumbs();
     }
 
+    // EXECUTION:
+    initializeSlider();
+
     prevBtn.addEventListener("click", () => goTo(currentIndex - 1));
     nextBtn.addEventListener("click", () => goTo(currentIndex + 1));
 
-    thumbs.forEach((t) => {
+    thumbs.forEach((t, index) => {
       t.addEventListener("click", () => {
-        goTo(parseInt(t.dataset.index, 10));
+        // Thumbs correspond to gallery index 1, 2, 3, 4
+        goTo(index + 1);
       });
     });
 
-    goTo(0);
+    goTo(0); // Start on the first slide
   }
 
   /* =====================================================
