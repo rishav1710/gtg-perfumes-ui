@@ -214,8 +214,15 @@ input[type="radio"]:checked::before {
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(3px);
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
   z-index: 90;
+}
+
+.mobile-menu-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .mobile-drawer {
