@@ -1,28 +1,131 @@
-const openBtn = document.getElementById("openMenu");
-const closeBtn = document.getElementById("closeMenu");
-const drawer = document.getElementById("mobileDrawer");
-const overlay = document.getElementById("mobileOverlay");
+document.addEventListener("DOMContentLoaded", () => {
+  /* =====================================================
+     MOBILE MENU
+  ===================================================== */
+  const openBtn = document.getElementById("openMenu");
+  const closeBtn = document.getElementById("closeMenu");
+  const drawer = document.getElementById("mobileDrawer");
+  const overlay = document.getElementById("mobileOverlay");
 
-openBtn.addEventListener("click", () => {
-  drawer.classList.add("open");
-  overlay.classList.add("show");
-});
+  if (openBtn && closeBtn && drawer && overlay) {
+    openBtn.addEventListener("click", () => {
+      drawer.classList.add("open");
+      overlay.classList.add("show");
+    });
 
-closeBtn.addEventListener("click", () => {
-  drawer.classList.remove("open");
-  overlay.classList.remove("show");
-});
+    closeBtn.addEventListener("click", () => {
+      drawer.classList.remove("open");
+      overlay.classList.remove("show");
+    });
 
-overlay.addEventListener("click", () => {
-  drawer.classList.remove("open");
-  overlay.classList.remove("show");
-});
+    overlay.addEventListener("click", () => {
+      drawer.classList.remove("open");
+      overlay.classList.remove("show");
+    });
+  }
 
-// ---------- Product gallery & subscription logic ----------
-(() => {
-  /* ---------------------------
-     GALLERY CONFIG (5 images)
-  ----------------------------*/
+  /* =====================================================
+     ACCORDION
+  ===================================================== */
+  const accordionItems = document.querySelectorAll(".accordion-item");
+
+  accordionItems.forEach((item) => {
+    const header = item.querySelector(".accordion-header");
+    const content = item.querySelector(".accordion-content");
+    const icon = item.querySelector(".icon");
+
+    // If initially active, set correct height
+    if (item.classList.contains("active")) {
+      content.style.height = content.scrollHeight + "px";
+      icon.textContent = "−";
+    }
+
+    header.addEventListener("click", () => {
+      accordionItems.forEach((i) => {
+        const c = i.querySelector(".accordion-content");
+        const ic = i.querySelector(".icon");
+
+        if (i !== item) {
+          i.classList.remove("active");
+          c.style.height = "0px";
+          ic.textContent = "+";
+        }
+      });
+
+      if (item.classList.contains("active")) {
+        // CLOSE
+        item.classList.remove("active");
+        content.style.height = "0px";
+        icon.textContent = "+";
+      } else {
+        // OPEN
+        item.classList.add("active");
+        content.style.height = content.scrollHeight + "px";
+        icon.textContent = "−";
+      }
+    });
+  });
+
+  /* =====================================================
+   STATS COUNT-UP (RESTART ON RE-ENTER VIEW)
+===================================================== */
+
+  const statsSection = document.getElementById("statsSection");
+  const statNumbers = document.querySelectorAll(".stat-number");
+
+  function animateValue(el, start, end, duration) {
+    let startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const value = Math.floor(progress * (end - start) + start);
+
+      el.textContent = value + "%";
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = end + "%";
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  function startStatsAnimation() {
+    statNumbers.forEach((el) => {
+      const target = Number(el.dataset.target);
+      animateValue(el, 0, target, 2500); // control speed here
+    });
+  }
+
+  function resetStats() {
+    statNumbers.forEach((el) => {
+      el.textContent = "0%";
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          startStatsAnimation();
+        } else {
+          resetStats();
+        }
+      });
+    },
+    {
+      threshold: 0.4,
+    }
+  );
+
+  observer.observe(statsSection);
+
+  /* =====================================================
+     PRODUCT GALLERY
+  ===================================================== */
   const gallery = [
     "assets/images/product-main.png",
     "assets/images/product-1.jpg",
@@ -37,53 +140,51 @@ overlay.addEventListener("click", () => {
   const dotsContainer = document.getElementById("psDots");
   const thumbs = document.querySelectorAll(".ps-thumb");
 
-  let currentIndex = 0;
+  if (mainImage && prevBtn && nextBtn && dotsContainer) {
+    let currentIndex = 0;
 
-  /* Render dots */
-  function renderDots() {
-    dotsContainer.innerHTML = "";
-    gallery.forEach((_, i) => {
-      const dot = document.createElement("div");
-      dot.className = "ps-dot" + (i === currentIndex ? " active" : "");
-      dot.dataset.index = i;
-      dot.onclick = () => goTo(i);
-      dotsContainer.appendChild(dot);
-    });
-  }
+    function renderDots() {
+      dotsContainer.innerHTML = "";
+      gallery.forEach((_, i) => {
+        const dot = document.createElement("div");
+        dot.className = "ps-dot" + (i === currentIndex ? " active" : "");
+        dot.onclick = () => goTo(i);
+        dotsContainer.appendChild(dot);
+      });
+    }
 
-  /* Activate thumbnail */
-  function updateThumbs() {
+    function updateThumbs() {
+      thumbs.forEach((t) => {
+        const idx = parseInt(t.dataset.index, 10);
+        t.classList.toggle("active", idx === currentIndex);
+      });
+    }
+
+    function goTo(i) {
+      if (i < 0) i = gallery.length - 1;
+      if (i >= gallery.length) i = 0;
+      currentIndex = i;
+
+      mainImage.src = gallery[currentIndex];
+      renderDots();
+      updateThumbs();
+    }
+
+    prevBtn.addEventListener("click", () => goTo(currentIndex - 1));
+    nextBtn.addEventListener("click", () => goTo(currentIndex + 1));
+
     thumbs.forEach((t) => {
-      const idx = parseInt(t.dataset.index);
-      t.classList.toggle("active", idx === currentIndex);
+      t.addEventListener("click", () => {
+        goTo(parseInt(t.dataset.index, 10));
+      });
     });
+
+    goTo(0);
   }
 
-  /* Change image */
-  function goTo(i) {
-    if (i < 0) i = gallery.length - 1;
-    if (i >= gallery.length) i = 0;
-    currentIndex = i;
-
-    mainImage.src = gallery[currentIndex];
-    renderDots();
-    updateThumbs();
-  }
-
-  prevBtn.onclick = () => goTo(currentIndex - 1);
-  nextBtn.onclick = () => goTo(currentIndex + 1);
-
-  thumbs.forEach((t) => {
-    t.onclick = () => {
-      goTo(parseInt(t.dataset.index));
-    };
-  });
-
-  goTo(0); // init gallery
-
-  /* ---------------------------
-     FRAGRANCES (3 shared)
-  ----------------------------*/
+  /* =====================================================
+     FRAGRANCE SELECTION
+  ===================================================== */
   const fragrances = [
     {
       id: "original",
@@ -98,136 +199,83 @@ overlay.addEventListener("click", () => {
   const fragDouble1Wrap = document.getElementById("psFragDouble1");
   const fragDouble2Wrap = document.getElementById("psFragDouble2");
 
-  function renderFragranceOptions() {
-    // Single
-    fragSingleWrap.innerHTML = "";
-    fragrances.forEach((f, i) => {
-      const card = document.createElement("label");
-      card.className = "frag-card" + (i === 0 ? " active" : "");
-      card.innerHTML = `
-        <input type="radio" name="frag_single" value="${f.id}" ${
-        i === 0 ? "checked" : ""
-      }>
-        <img src="${f.img}" alt="">
-        <span>${f.label}</span>
-      `;
-      card.onclick = () => {
-        fragSingleWrap
-          .querySelectorAll(".frag-card")
-          .forEach((c) => c.classList.remove("active"));
-        card.classList.add("active");
-        card.querySelector("input").checked = true;
-        updateAddToCart();
-      };
-      fragSingleWrap.appendChild(card);
-    });
+  function renderFragrances(wrapper, name, defaultIndex = 0) {
+    if (!wrapper) return;
 
-    // Double 1
-    fragDouble1Wrap.innerHTML = "";
+    wrapper.innerHTML = "";
     fragrances.forEach((f, i) => {
       const card = document.createElement("label");
-      card.className = "frag-card" + (i === 0 ? " active" : "");
+      card.className = "frag-card" + (i === defaultIndex ? " active" : "");
       card.innerHTML = `
-        <input type="radio" name="frag_double_1" value="${f.id}" ${
-        i === 0 ? "checked" : ""
+        <input type="radio" name="${name}" value="${f.id}" ${
+        i === defaultIndex ? "checked" : ""
       }>
         <img src="${f.img}" alt="">
         <span>${f.label}</span>
       `;
-      card.onclick = () => {
-        fragDouble1Wrap
-          .querySelectorAll(".frag-card")
-          .forEach((c) => c.classList.remove("active"));
-        card.classList.add("active");
-        card.querySelector("input").checked = true;
-        updateAddToCart();
-      };
-      fragDouble1Wrap.appendChild(card);
-    });
 
-    // Double 2
-    fragDouble2Wrap.innerHTML = "";
-    fragrances.forEach((f, i) => {
-      const card = document.createElement("label");
-      card.className = "frag-card" + (i === 1 ? " active" : "");
-      card.innerHTML = `
-        <input type="radio" name="frag_double_2" value="${f.id}" ${
-        i === 1 ? "checked" : ""
-      }>
-        <img src="${f.img}" alt="">
-        <span>${f.label}</span>
-      `;
-      card.onclick = () => {
-        fragDouble2Wrap
+      card.addEventListener("click", () => {
+        wrapper
           .querySelectorAll(".frag-card")
           .forEach((c) => c.classList.remove("active"));
         card.classList.add("active");
         card.querySelector("input").checked = true;
         updateAddToCart();
-      };
-      fragDouble2Wrap.appendChild(card);
+      });
+
+      wrapper.appendChild(card);
     });
   }
 
-  renderFragranceOptions();
+  renderFragrances(fragSingleWrap, "frag_single", 0);
+  renderFragrances(fragDouble1Wrap, "frag_double_1", 0);
+  renderFragrances(fragDouble2Wrap, "frag_double_2", 1);
 
-  /* ---------------------------
+  /* =====================================================
      PLAN SWITCHER
-  ----------------------------*/
+  ===================================================== */
   const planRadios = document.querySelectorAll("input[name='plan']");
   const panelSingle = document.querySelector(".ps-single");
   const panelDouble = document.querySelector(".ps-double");
 
   planRadios.forEach((r) => {
-    r.onchange = () => {
-      if (r.value === "single") {
-        panelSingle.style.display = "block";
-        panelDouble.style.display = "none";
-      } else {
-        panelSingle.style.display = "none";
-        panelDouble.style.display = "block";
-      }
+    r.addEventListener("change", () => {
+      const isSingle = r.value === "single";
+      panelSingle.style.display = isSingle ? "block" : "none";
+      panelDouble.style.display = isSingle ? "none" : "block";
       updateAddToCart();
-    };
+    });
   });
 
-  /* ---------------------------
-     PURCHASE TYPE
-  ----------------------------*/
-  document
-    .querySelectorAll("input[name='purchaseType']")
-    .forEach((r) => (r.onchange = updateAddToCart));
-
-  /* ---------------------------
+  /* =====================================================
      ADD TO CART URL BUILDER
-  ----------------------------*/
+  ===================================================== */
   const addToCart = document.getElementById("psAddToCart");
 
   function updateAddToCart() {
-    const plan = document.querySelector("input[name='plan']:checked").value;
-    const purchase = document.querySelector(
-      "input[name='purchaseType']:checked"
-    ).value;
+    if (!addToCart) return;
 
-    let url = "/checkout?plan=" + plan;
+    const plan = document.querySelector("input[name='plan']:checked")?.value;
+
+    let url = `/checkout?plan=${plan}`;
 
     if (plan === "single") {
       const frag = document.querySelector(
         "input[name='frag_single']:checked"
-      ).value;
-      url += `&product=main&frag=${frag}&type=${purchase}`;
+      )?.value;
+      url += `&frag=${frag}`;
     } else {
       const f1 = document.querySelector(
         "input[name='frag_double_1']:checked"
-      ).value;
+      )?.value;
       const f2 = document.querySelector(
         "input[name='frag_double_2']:checked"
-      ).value;
-      url += `&product=main&f1=${f1}&f2=${f2}&type=${purchase}`;
+      )?.value;
+      url += `&f1=${f1}&f2=${f2}`;
     }
 
     addToCart.href = url;
   }
 
   updateAddToCart();
-})();
+});

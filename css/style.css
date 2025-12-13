@@ -11,7 +11,7 @@ body {
   font-weight: 300;
 }
 
-/* ================= HEADER & HERO  ================= */
+/* ================= Header & Hero  ================= */
 
 .hero-wrapper-bg {
   width: 100%;
@@ -164,7 +164,7 @@ body {
   padding: 14px 34px;
 }
 
-/* ================= MOBILE DRAWER  ================= */
+/* ================= Mobile drawer  ================= */
 
 .mobile-menu-overlay {
   position: fixed;
@@ -238,7 +238,7 @@ body {
   padding-left: 5px;
 }
 
-/* ================= GTG PERFUMES ================= */
+/* ================= GTG perfume section ================= */
 
 .product-subscription-section {
   padding: 60px 0;
@@ -318,6 +318,7 @@ body {
   border-radius: 50%;
   background: #0b5229;
   opacity: 0.28;
+  cursor: pointer;
 }
 
 .ps-dot.active {
@@ -541,20 +542,385 @@ body {
   font-weight: 700;
 }
 
+/* ================= Accordion section ================= */
+
+.collection {
+  padding: 80px 0;
+}
+
+.collection-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.collection-left h2 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  font-weight: 600;
+  color: #032e15;
+}
+
+/* Accordion */
+.accordion-item {
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.accordion-header {
+  width: 100%;
+  background: #fff;
+  border: none;
+  padding: 18px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: #032e15;
+}
+
+.accordion-content {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+
+.accordion-content p {
+  padding: 0 20px 20px;
+  font-weight: 300;
+  color: #666666;
+  line-height: 1.6;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 200px;
+}
+
+.accordion-item.active .icon {
+  content: "−";
+}
+
+.collection-right {
+  height: 700px;
+}
+
+.collection-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* ================= Stats section ================= */
+
+.stats-section {
+  background: linear-gradient(180deg, #032e15 0%, #016630 100%);
+  padding: 50px 0;
+  color: #ffffff;
+}
+
+.stats-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.stat-text {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* ================= Comparison Section ================= */
+
+.comparison-section {
+  padding: 100px 0;
+}
+
+.comparison-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.comparison-header .divider {
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+.comparison-header h2 {
+  font-size: 36px;
+  font-weight: 600;
+  color: #032e15;
+}
+
+.comparison-table-wrapper {
+  overflow-x: auto;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 18px 16px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.comparison-table thead th {
+  font-weight: 400;
+}
+
+.comparison-table thead img {
+  width: 100px;
+  height: 88px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+.comparison-table thead span {
+  font-size: 14px;
+}
+
+.qualities-col {
+  text-align: left;
+  font-size: 16px;
+  color: #666666;
+  font-weight: 700 !important;
+  width: 240px;
+}
+
+.qualities {
+  color: #322d2d !important;
+}
+
+.highlight-col {
+  border-radius: 16px;
+  background-color: #f0fdf4;
+}
+
+.text-light {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.comparison-table td img {
+  width: 24px;
+  height: 24px;
+}
+
+.comparison-cta {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 16px 40px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  background: linear-gradient(180deg, #032e15 0%, #016630 100%);
+}
+
+.comparison-table-wrapper {
+  position: relative;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.comparison-table-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+/* ================= Footer section ================= */
+
+.footer {
+  background-color: #032e15;
+  padding: 80px 0;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.footer-logo {
+  font-family: "Inter", sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+
+.footer-left {
+  display: flex;
+  gap: 80px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 14px;
+}
+
+.footer-links a {
+  font-family: "Oxanium", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footer-social {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-social li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-family: "Oxanium", sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+}
+
+.footer-social a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: "Oxanium", sans-serif;
+  font-weight: 300;
+}
+
+.footer-social img {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-newsletter {
+  max-width: 500px;
+}
+
+.newsletter-title {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fef3e4;
+  margin-bottom: 16px;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 14px 16px;
+  border: 1px solid #ffffff;
+  background: transparent;
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+}
+
+.newsletter-form input::placeholder {
+  color: #ffffff;
+  opacity: 0.8;
+}
+
+.newsletter-form button {
+  padding: 14px 28px;
+  background-color: #653b09;
+  border: none;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.newsletter-note {
+  font-family: "Oxanium", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+.newsletter-note a {
+  color: #ffffff;
+}
+
 /* =========================================
    RESPONSIVE LAYOUT
 ========================================= */
 
 @media (max-width: 1200px) {
-  /* ================= HEADER & HERO  ================= */
+  /* ================= Header & Hero  ================= */
   .hero {
     padding-top: 100px;
     text-align: center;
   }
+
+  /* ================= Stats section ================= */
+  .stats-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 50px;
+  }
 }
 
 @media (max-width: 992px) {
-  /* ================= HEADER & HERO  ================= */
+  /* ================= Header & Hero  ================= */
   .hero {
     padding-top: 0px;
     text-align: center;
@@ -635,10 +1001,45 @@ body {
   .ps-thumbs {
     justify-content: flex-start;
   }
+
+  /* ================= Accordion section ================= */
+
+  .collection-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .collection-right {
+    order: -1;
+    height: 420px;
+  }
+
+  .collection-left h2 {
+    font-size: 28px;
+  }
+
+  /* ================= Footer section ================= */
+
+  .footer-content {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .footer-left {
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form button {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
-  /* ================= GTG PERFUMES  ================= */
+  /* ================= GTG perfume section  ================= */
 
   .product-subscription-section {
     padding: 32px 0;
@@ -708,10 +1109,23 @@ body {
     padding: 12px 20px;
     font-size: 16px;
   }
+
+  /* ================= Comparison section ================= */
+
+  .qualities-col {
+    position: sticky;
+    left: 0;
+    background: #fff;
+    z-index: 2;
+  }
+
+  .highlight-col {
+    z-index: 1;
+  }
 }
 
 @media (max-width: 480px) {
-  /* ================= GTG PERFUMES  ================= */
+  /* ================= GTG perfume section  ================= */
 
   .ps-title {
     font-size: 24px;
@@ -749,5 +1163,30 @@ body {
 
   .ps-features li {
     font-size: 14px;
+  }
+
+  /* ================= Accordion section ================= */
+
+  .collection-right {
+    height: 320px;
+  }
+
+  /* ================= Stats section ================= */
+
+  .stats-section {
+    padding: 60px 0;
+  }
+
+  .stats-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .stat-number {
+    font-size: 34px;
+  }
+
+  .stat-text {
+    font-size: 15px;
   }
 }
