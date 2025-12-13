@@ -206,13 +206,18 @@ document.addEventListener("DOMContentLoaded", () => {
     fragrances.forEach((f, i) => {
       const card = document.createElement("label");
       card.className = "frag-card" + (i === defaultIndex ? " active" : "");
+      const isBestSeller = f.id === "original";
+
       card.innerHTML = `
-        <input type="radio" name="${name}" value="${f.id}" ${
+  ${isBestSeller ? `<span class="best-seller-tag">BEST-SELLER</span>` : ""}
+  <div class="frag-head">
+    <input type="radio" name="${name}" value="${f.id}" ${
         i === defaultIndex ? "checked" : ""
       }>
-        <img src="${f.img}" alt="">
-        <span>${f.label}</span>
-      `;
+    <span class="frag-label">${f.label}</span>
+  </div>
+  <img src="${f.img}" alt="">
+`;
 
       card.addEventListener("click", () => {
         wrapper
@@ -238,11 +243,65 @@ document.addEventListener("DOMContentLoaded", () => {
   const panelSingle = document.querySelector(".ps-single");
   const panelDouble = document.querySelector(".ps-double");
 
-  planRadios.forEach((r) => {
-    r.addEventListener("change", () => {
-      const isSingle = r.value === "single";
-      panelSingle.style.display = isSingle ? "block" : "none";
-      panelDouble.style.display = isSingle ? "none" : "block";
+  const defaultPlanRow = document
+    .querySelector("input[name='plan']:checked")
+    ?.closest(".ps-plan");
+
+  if (defaultPlanRow) {
+    panelSingle.classList.add("no-anim");
+    panelSingle.style.display = "block";
+
+    defaultPlanRow.appendChild(panelSingle);
+
+    panelSingle.style.maxHeight = panelSingle.scrollHeight + "px";
+    panelSingle.offsetHeight;
+
+    panelSingle.classList.add("is-expanded");
+    panelSingle.classList.remove("no-anim");
+  }
+
+  function closePanel(panel) {
+    panel.style.maxHeight = panel.scrollHeight + "px";
+    panel.offsetHeight;
+
+    panel.style.maxHeight = "0px";
+    panel.classList.remove("is-expanded");
+    panel.classList.add("is-collapsed");
+
+    setTimeout(() => {
+      panel.style.display = "none";
+    }, 350);
+  }
+
+  function openPanelInsidePlan(panel, planRow) {
+    panel.style.display = "block";
+
+    planRow.appendChild(panel);
+
+    panel.classList.remove("is-collapsed");
+    panel.classList.add("is-expanded");
+
+    panel.style.maxHeight = panel.scrollHeight + "px";
+  }
+
+  let firstToggle = true;
+
+  planRadios.forEach((radio) => {
+    radio.addEventListener("change", (e) => {
+      if (firstToggle) {
+        panelDouble.classList.remove("no-anim");
+        firstToggle = false;
+      }
+
+      const planRow = e.target.closest(".ps-plan");
+      const isSingle = e.target.value === "single";
+
+      const activePanel = isSingle ? panelSingle : panelDouble;
+      const inactivePanel = isSingle ? panelDouble : panelSingle;
+
+      closePanel(inactivePanel);
+      openPanelInsidePlan(activePanel, planRow);
+
       updateAddToCart();
     });
   });
@@ -276,6 +335,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addToCart.href = url;
   }
+
+  const addToCartBtn = document.getElementById("psAddToCart");
+
+  addToCartBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("Add to cart clicked (static for now)");
+  });
 
   updateAddToCart();
 });

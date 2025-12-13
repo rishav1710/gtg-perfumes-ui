@@ -11,6 +11,49 @@ body {
   font-weight: 300;
 }
 
+html,
+body {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 2px solid #016630;
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  background: #fff;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.15s ease;
+  background: linear-gradient(
+    180deg,
+    rgba(3, 46, 21, 0.6),
+    rgba(1, 102, 48, 0.6)
+  );
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
 /* ================= Header & Hero  ================= */
 
 .hero-wrapper-bg {
@@ -373,6 +416,8 @@ body {
   margin: 16px 0;
   font-weight: 600;
   text-align: center;
+  margin-bottom: 0;
+  border-radius: 10px 10px 0 0;
 }
 
 .ps-plan-selector {
@@ -381,29 +426,14 @@ body {
   gap: 12px;
 }
 
-.ps-plan {
-  display: flex;
-  justify-content: space-between;
-  padding: 14px;
-  border: 1px solid #e6e6e6;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 .ps-price {
   color: #0b5229;
   font-weight: 700;
 }
 
-.ps-panel {
-  border: 1px solid #eee;
-  padding: 18px;
-  border-radius: 8px;
-  margin-top: 16px;
-}
-
 .ps-panel h3 {
   margin-bottom: 16px;
+  font-size: 16px;
 }
 
 .ps-frag-grid {
@@ -421,8 +451,27 @@ body {
   text-align: center;
   cursor: pointer;
   transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 14px;
 }
 
+.best-seller-tag {
+  position: absolute;
+  top: -8px;
+  right: 6px;
+  padding: 3px 6px;
+  font-size: 7px;
+  font-weight: 600;
+  line-height: 1;
+  color: #ffffff;
+  background: linear-gradient(180deg, #032e15 0%, #016630 100%);
+  border-radius: 4.95px 0 4.95px 0;
+  letter-spacing: 0.3px;
+  z-index: 3;
+  white-space: nowrap;
+}
 .frag-card img {
   width: 70px;
   height: 80px;
@@ -540,6 +589,97 @@ body {
 
 .ps-features li strong {
   font-weight: 700;
+}
+
+.ps-panel {
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+}
+
+.ps-panel {
+  max-height: 0;
+  opacity: 0;
+}
+
+.ps-panel.is-expanded {
+  opacity: 1;
+}
+
+.ps-panel.no-anim {
+  transition: none !important;
+}
+
+.ps-plan {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.ps-plan > span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ps-plan > strong {
+  font-weight: 700;
+  color: #0b5229;
+  white-space: nowrap;
+}
+
+.ps-plan .ps-panel {
+  grid-column: 1 / -1;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e6e6e6;
+}
+
+.frag-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.frag-label {
+  font-weight: 300;
+  color: #919798;
+  font-size: 14px;
+}
+
+.frag-card.active .frag-label {
+  background: linear-gradient(
+    180deg,
+    rgba(3, 46, 21, 0.6) 0%,
+    rgba(1, 102, 48, 0.6) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 300;
+}
+.frag-card img {
+  width: 70px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.ps-panel {
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+}
+
+.ps-panel.is-collapsed {
+  display: none;
+}
+
+.ps-panel.is-expanded {
+  display: block;
 }
 
 /* ================= Accordion section ================= */
