@@ -1,5 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
   /* =====================================================
+     STICKY HEADER LOGIC
+  ===================================================== */
+  const header = document.querySelector(".header");
+  const heroWrapper = document.querySelector(".hero-wrapper-bg");
+
+  function handleScroll() {
+    if (window.scrollY > 50) {
+      header.classList.add("scrolled");
+
+      if (heroWrapper) {
+        heroWrapper.style.paddingTop = `${header.offsetHeight}px`;
+      }
+    } else {
+      header.classList.remove("scrolled");
+      if (heroWrapper) {
+        heroWrapper.style.paddingTop = "0";
+      }
+    }
+  }
+
+  window.addEventListener("scroll", handleScroll);
+
+  // Initial check in case the user reloads while scrolled down
+  handleScroll();
+
+  /* =====================================================
      MOBILE MENU
   ===================================================== */
   const openBtn = document.getElementById("openMenu");
@@ -73,6 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const statsSection = document.getElementById("statsSection");
   const statNumbers = document.querySelectorAll(".stat-number");
 
+  let hasAnimated = false;
+
   function animateValue(el, start, end, duration) {
     let startTime = null;
 
@@ -96,29 +124,21 @@ document.addEventListener("DOMContentLoaded", () => {
   function startStatsAnimation() {
     statNumbers.forEach((el) => {
       const target = Number(el.dataset.target);
-      animateValue(el, 0, target, 2500); // control speed here
-    });
-  }
-
-  function resetStats() {
-    statNumbers.forEach((el) => {
-      el.textContent = "0%";
+      animateValue(el, 0, target, 2500);
     });
   }
 
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !hasAnimated) {
           startStatsAnimation();
-        } else {
-          resetStats();
+          hasAnimated = true;
+          observer.unobserve(entry.target);
         }
       });
     },
-    {
-      threshold: 0.4,
-    }
+    { threshold: 0.4 }
   );
 
   observer.observe(statsSection);
@@ -134,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "assets/images/product-4.jpg",
   ];
 
-  const slider = document.getElementById("psImageSlider"); // NEW: The container that moves
+  const slider = document.getElementById("psImageSlider");
   const prevBtn = document.getElementById("psPrev");
   const nextBtn = document.getElementById("psNext");
   const dotsContainer = document.getElementById("psDots");
@@ -143,7 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (slider && prevBtn && nextBtn && dotsContainer) {
     let currentIndex = 0;
 
-    // 1. Function to create all the image slide elements
     function initializeSlider() {
       slider.innerHTML = "";
       gallery.forEach((src) => {
@@ -154,7 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // 2. Function to update navigation dots
     function renderDots() {
       dotsContainer.innerHTML = "";
       gallery.forEach((_, i) => {
@@ -165,30 +183,25 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // 3. Function to update active thumbnail state
     function updateThumbs() {
       thumbs.forEach((t, index) => {
-        // Since thumbs start at index 1 in the gallery (index 0 is product-main.png)
         const isThumbActive = index + 1 === currentIndex;
         t.classList.toggle("active", isThumbActive);
       });
     }
 
-    // 4. Core function to slide the carousel
     function goTo(i) {
       if (i < 0) i = gallery.length - 1;
       if (i >= gallery.length) i = 0;
       currentIndex = i;
 
-      // CORE CHANGE: Use CSS transform to slide the whole container
-      const offset = -currentIndex * 100; // Calculates the percentage offset (0%, -100%, -200%, etc.)
+      const offset = -currentIndex * 100;
       slider.style.transform = `translateX(${offset}%)`;
 
       renderDots();
       updateThumbs();
     }
 
-    // EXECUTION:
     initializeSlider();
 
     prevBtn.addEventListener("click", () => goTo(currentIndex - 1));
@@ -196,12 +209,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     thumbs.forEach((t, index) => {
       t.addEventListener("click", () => {
-        // Thumbs correspond to gallery index 1, 2, 3, 4
         goTo(index + 1);
       });
     });
 
-    goTo(0); // Start on the first slide
+    goTo(0);
   }
 
   /* =====================================================
@@ -331,12 +343,11 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =====================================================
      ADD TO CART URL BUILDER
   ===================================================== */
-  const addToCart = document.getElementById("psAddToCart");
+  const addToCartBtn = document.getElementById("psAddToCart");
 
-  function updateAddToCart() {
-    if (!addToCart) return;
-
+  function buildCheckoutUrl() {
     const plan = document.querySelector("input[name='plan']:checked")?.value;
+    if (!plan) return null;
 
     let url = `/checkout?plan=${plan}`;
 
@@ -344,7 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const frag = document.querySelector(
         "input[name='frag_single']:checked"
       )?.value;
-      url += `&frag=${frag}`;
+      if (frag) url += `&frag=${frag}`;
     } else {
       const f1 = document.querySelector(
         "input[name='frag_double_1']:checked"
@@ -352,18 +363,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const f2 = document.querySelector(
         "input[name='frag_double_2']:checked"
       )?.value;
-      url += `&f1=${f1}&f2=${f2}`;
+      if (f1) url += `&f1=${f1}`;
+      if (f2) url += `&f2=${f2}`;
     }
 
-    addToCart.href = url;
+    return url;
   }
 
-  const addToCartBtn = document.getElementById("psAddToCart");
+  function updateRedirectUrlInCurrentPage() {
+    const checkoutUrl = buildCheckoutUrl();
+    if (!checkoutUrl) return;
+
+    const currentUrl = new URL(window.location.href);
+
+    currentUrl.searchParams.set(
+      "redirect_url",
+      encodeURIComponent(checkoutUrl)
+    );
+
+    window.history.replaceState({}, "", currentUrl.toString());
+  }
 
   addToCartBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log("Add to cart clicked (static for now)");
+    updateRedirectUrlInCurrentPage();
+    console.log("redirect_url updated in current URL");
   });
-
-  updateAddToCart();
 });
