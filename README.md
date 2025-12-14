@@ -2,6 +2,8 @@
 
 A premium e-commerce website for high-end perfumes built with vanilla HTML, CSS, and JavaScript. Features an interactive product gallery, subscription plans, and a fully responsive design optimized for all devices.
 
+🔗 **[Live Demo](https://rishav1710.github.io/gtg-perfumes-ui/)**
+
 ## 🌟 Key Features
 
 - **Sticky Navigation** - Header that becomes fixed on scroll with blur effect
